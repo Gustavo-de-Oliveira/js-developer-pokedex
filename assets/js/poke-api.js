@@ -15,10 +15,21 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
     const abilities = pokeDetail.abilities.map((abilitySlot) => abilitySlot.ability.name);
     pokemon.abilities = abilities;
 
+    pokemon.weight = pokeDetail.weight;
+    pokemon.height = pokeDetail.height;
+
 
     pokemon.photo = pokeDetail.sprites.other.dream_world.front_default
 
     return pokemon
+}
+
+pokeApi.getPokemonDetailById = (valor) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${valor}`
+
+    return fetch(url)
+        .then((response) => response.json())
+        .then(convertPokeApiDetailToPokemon)
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {
